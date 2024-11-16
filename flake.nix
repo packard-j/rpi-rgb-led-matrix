@@ -31,9 +31,9 @@
             # Only building the library and demo executable to get started.
             installPhase = ''
               mkdir -p $out/lib
-              mkdir -p $out/examples-api-use
+              mkdir -p $out/bin
               cp lib/*.{a,so} $out/lib
-              cp examples-api-use/demo $out/rpi-rgb-led-matrix
+              cp examples-api-use/demo $out/bin/rpi-rgb-led-matrix
             '';
           };
       });
