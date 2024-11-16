@@ -33,7 +33,7 @@
               mkdir -p $out/lib
               mkdir -p $out/examples-api-use
               cp lib/*.{a,so} $out/lib
-              cp examples-api-use/demo $out/examples-api-use
+              cp examples-api-use/demo $out/rpi-rgb-led-matrix
             '';
           };
       });
