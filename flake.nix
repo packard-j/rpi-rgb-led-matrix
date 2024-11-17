@@ -18,7 +18,7 @@
       });
     in
     {
-      packages = forAllSystems ({ pkgs }: rec {
+      apps = forAllSystems ({ pkgs }: {
         default = let
           demo = pkgs.writeShellApplication {
             name = "rpi-rgb-led-demo";
@@ -31,7 +31,9 @@
           type = "app";
           program = "${demo}/bin/rpi-rgb-led-demo";
         };
-        rpi-rgb-led-matrix =
+      });
+      packages = forAllSystems ({ pkgs }: {
+        default =
           let
             cppDependencies = with pkgs; [ gcc ];
           in
