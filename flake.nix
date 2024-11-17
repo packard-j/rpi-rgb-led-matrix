@@ -25,7 +25,7 @@
             name = "rpi-rgb-led-demo";
             runtimeInputs = [packages."${system}".default];
             text = ''
-              sudo rpi-rgb-led-matrix -D0 --led-gpio-mapping=adafruit-hat --led-rows=64 --led-cols=64 --led-slowdown-gpio=2
+              rpi-rgb-led-matrix -D0 --led-gpio-mapping=adafruit-hat --led-rows=64 --led-cols=64 --led-slowdown-gpio=2
             '';
           };
         in {
