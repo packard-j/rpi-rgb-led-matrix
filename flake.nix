@@ -15,16 +15,17 @@
       # Helper to provide system-specific attributes
       forAllSystems = f: nixpkgs.lib.genAttrs allSystems (system: f {
         pkgs = import nixpkgs { inherit system; };
+        inherit system;
       });
     in
     rec {
-      apps = forAllSystems ({ pkgs }: {
+      apps = forAllSystems ({ pkgs, system }: {
         default = let
           demo = pkgs.writeShellApplication {
             name = "rpi-rgb-led-demo";
-            runtimeInputs = [packages.default];
+            runtimeInputs = [packages."${system}".default];
             text = ''
-              rpi-rgb-led-matrix -D0 --led-gpio-mapping=adafruit-hat --led-rows=64 --led-cols=64 --led-slowdown-gpio=2
+              sudo rpi-rgb-led-matrix -D0 --led-gpio-mapping=adafruit-hat --led-rows=64 --led-cols=64 --led-slowdown-gpio=2
             '';
           };
         in {
@@ -32,7 +33,7 @@
           program = "${demo}/bin/rpi-rgb-led-demo";
         };
       });
-      packages = forAllSystems ({ pkgs }: {
+      packages = forAllSystems ({ pkgs, ... }: {
         default =
           let
             cppDependencies = with pkgs; [ gcc ];
