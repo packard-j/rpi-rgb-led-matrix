@@ -18,8 +18,20 @@
       });
     in
     {
-      packages = forAllSystems ({ pkgs }: {
-        default =
+      packages = forAllSystems ({ pkgs }: rec {
+        default = let
+          demo = pkgs.writeShellApplication {
+            name = "rpi-rgb-led-demo";
+            runtimeInputs = [self.rpi-rgb-led-matrix];
+            text = ''
+              rpi-rgb-led-matrix -D0 --led-gpio-mapping=adafruit-hat --led-rows=64 --led-cols=64 --led-slowdown-gpio=2
+            '';
+          };
+        in {
+          type = "app";
+          program = "${demo}/bin/rpi-rgb-led-demo";
+        };
+        rpi-rgb-led-matrix =
           let
             cppDependencies = with pkgs; [ gcc ];
           in
