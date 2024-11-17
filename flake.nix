@@ -22,7 +22,7 @@
         default = let
           demo = pkgs.writeShellApplication {
             name = "rpi-rgb-led-demo";
-            runtimeInputs = [packages.rpi-rgb-led-matrix];
+            runtimeInputs = [packages.default];
             text = ''
               rpi-rgb-led-matrix -D0 --led-gpio-mapping=adafruit-hat --led-rows=64 --led-cols=64 --led-slowdown-gpio=2
             '';
